@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './routes';
+import { LateralMenu } from './shared/components';
 import { AppThemeProvider } from './shared/contexts/ThemeContext';
 
 
@@ -7,7 +8,11 @@ export const App = () => {
   return (
     <AppThemeProvider>
       <BrowserRouter>
-        <AppRoutes />
+
+        <LateralMenu>
+          <AppRoutes />
+        </LateralMenu>
+
       </BrowserRouter>
     </AppThemeProvider>
   );
