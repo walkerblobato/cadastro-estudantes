@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material';
 import { cyan, orange } from '@mui/material/colors';
 
 
-export const SoftTheme = createTheme({
+export const DarkTheme = createTheme({
     palette: {
         primary: {
             main: orange[500],
@@ -17,8 +17,8 @@ export const SoftTheme = createTheme({
             contrastText: '#ffffff', 
         },
         background: {
-            paper: '#ffffff',
-            default: '#f7f6f3' ,
+            paper: '#303134',
+            default: '#202124' ,
         }
     }
 });
