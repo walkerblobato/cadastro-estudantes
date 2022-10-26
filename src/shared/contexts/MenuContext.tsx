@@ -3,7 +3,15 @@ import { createContext, useContext, useState, useCallback } from 'react';
 
 interface IMenuContextData {
     isMenuOpen: boolean;
+    menuOptions: IMenuOption[];
     changeMenuOpen: () => void;
+    setMenuOption: (newMenuOption: IMenuOption[]) => void;
+}
+
+interface IMenuOption {
+    to: string,
+    icon: string,
+    label: string;
 }
 
 const MenuContext = createContext({} as IMenuContextData);
@@ -18,13 +26,18 @@ interface IAppMenuProvider {
 
 export const MenuProvider: React.FC<IAppMenuProvider> = ({ children }) => {
     const [ isMenuOpen, setIsMenuOpen ] = useState(false);
+    const [ menuOptions, setMenuOption ] = useState<IMenuOption[]>([]);
 
     const changeMenuOpen = useCallback(() => {
         setIsMenuOpen(oldMenuOpen => !oldMenuOpen);
-    }, [isMenuOpen]);
+    }, []);
+
+    const handleSetMenuOptions = useCallback((newMenuOptions: IMenuOption[]) => {
+        setMenuOption(newMenuOptions);
+    }, []);
 
     return (
-        <MenuContext.Provider value={{ isMenuOpen, changeMenuOpen }}>
+        <MenuContext.Provider value={{ isMenuOpen, menuOptions, changeMenuOpen, setMenuOption: handleSetMenuOptions }}>
             {children}                
         </MenuContext.Provider>
     );

@@ -1,34 +1,38 @@
 import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { useMenuContext } from '../../contexts';
 import profile from './profile-walker.jpg';
 
 
-// interface IListItemMenuProps {
-//  to: string;
-//  icon: string;
-//  label: string;
-//  onClick: () => void | undefined;
-// }
-// const ListItemMenu: React.FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
-//     const navigate = useNavigate();
+interface IListItemMenuProps {
+ to: string;
+ icon: string;
+ label: string;
+ onClick: (() => void) | undefined;
+}
 
-//     const handleClick = () => {
-//         navigate(to);
-//         // Se undefined executa a função
-//         onClick?.();
-//     };
+const ListItemMenu: React.FC<IListItemMenuProps> = ({ to, icon, label, onClick }) => {
+    const navigate = useNavigate();
 
-//     return (
-//         <ListItemButton onClick={onClick}>
-//             <ListItemIcon>
-//                 <Icon>{icon}</Icon>
-//             </ListItemIcon>
-//             <ListItemText primary={label}/>
-//         </ListItemButton>
-//     );
-// };
+    const resolvePath = useResolvedPath(to);
+    const match = useMatch({ path: resolvePath.pathname, end: false});
+
+    const handleClick = () => {
+        navigate(to);
+        // Se undefined executa a função
+        onClick?.();
+    };
+
+    return (
+        <ListItemButton selected={!!match} onClick={handleClick}>
+            <ListItemIcon>
+                <Icon>{icon}</Icon>
+            </ListItemIcon>
+            <ListItemText primary={label}/>
+        </ListItemButton>
+    );
+};
 
 interface ILateralMenu {
     children: React.ReactNode;
@@ -38,7 +42,7 @@ export const LateralMenu: React.FC<ILateralMenu> = ({ children }) => {
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const { isMenuOpen, changeMenuOpen } = useMenuContext();
+    const { isMenuOpen, changeMenuOpen, menuOptions } = useMenuContext();
 
     return (
         <>
@@ -68,15 +72,20 @@ export const LateralMenu: React.FC<ILateralMenu> = ({ children }) => {
 
                     <Box flex={1}>
                         <List component='nav'>
-                        <ListItemButton >
-                            <ListItemIcon>
-                                <Icon>home</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary='Página inicial'/>
-                        </ListItemButton>
+                            {menuOptions.map((menuOption, index) => (
+                                <ListItemMenu
+                                    key={index}
+                                    icon={menuOption.icon}
+                                    to={menuOption.to}
+                                    label={menuOption.label}
+                                    onClick={smDown ? changeMenuOpen : undefined} 
+                                />
+                            ))}
                         </List>
                     </Box>
+
                 </Box>
+
             </Drawer>
 
             <Box height='100vh' marginLeft={smDown ? 0 : theme.spacing(28)}>{children}</Box>
