@@ -1,7 +1,7 @@
 import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { useMenuContext } from '../../contexts';
+import { useAppThemeContext, useMenuContext } from '../../contexts';
 import profile from './profile-walker.jpg';
 
 
@@ -43,6 +43,7 @@ export const LateralMenu: React.FC<ILateralMenu> = ({ children }) => {
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
     const { isMenuOpen, changeMenuOpen, menuOptions } = useMenuContext();
+    const { changeTheme } = useAppThemeContext();
 
     return (
         <>
@@ -81,6 +82,17 @@ export const LateralMenu: React.FC<ILateralMenu> = ({ children }) => {
                                     onClick={smDown ? changeMenuOpen : undefined} 
                                 />
                             ))}
+                        </List>
+                    </Box>
+
+                    <Box>
+                        <List component='nav'>
+                        <ListItemButton onClick={changeTheme}>
+                            <ListItemIcon>
+                                <Icon>dark_mode</Icon>
+                            </ListItemIcon>
+                            <ListItemText primary="Alternar Theme"/>
+                        </ListItemButton>
                         </List>
                     </Box>
 
