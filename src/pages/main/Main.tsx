@@ -1,4 +1,4 @@
-import { Toolbar } from '../../shared/components';
+import { ToolbarDetails, ToolbarList } from '../../shared/components';
 import { LayoutPage } from '../../shared/layouts';
 
 export const Main = () => {
@@ -6,9 +6,7 @@ export const Main = () => {
         <LayoutPage 
             title='Página Inicial' 
             toolbar={(
-                <Toolbar 
-                    showSearchInput
-                />
+                <ToolbarDetails />
                 )}
         >
             Testando
