@@ -5,7 +5,7 @@ interface ToolbarListProps {
     showSearchInput?: boolean;
     changeSearchText?: (newText: string) => void;
     newButtonText?: string;
-    showNewButtonText?: boolean;
+    showNewButton?: boolean;
     clickNewButton?: () => void;
 }
 export const ToolbarList: React.FC<ToolbarListProps> = ({
@@ -13,7 +13,7 @@ export const ToolbarList: React.FC<ToolbarListProps> = ({
     showSearchInput = false,
     changeSearchText,
     newButtonText = 'Novo',
-    showNewButtonText = true,
+    showNewButton: showNewButtonText = true,
     clickNewButton,
 }) => {
     const theme = useTheme();
