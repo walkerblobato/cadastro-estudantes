@@ -6,7 +6,12 @@ export const Main = () => {
         <LayoutPage 
             title='Página Inicial' 
             toolbar={(
-                <ToolbarDetails showSaveCloseButton/>
+                <ToolbarDetails
+                    showSaveCloseButton
+                    showNewButton
+                    showSaveCloseButtonLoading
+                    showBackButton={false} 
+                />
                 )}
         >
             Testando

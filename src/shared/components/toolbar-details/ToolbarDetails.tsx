@@ -1,4 +1,4 @@
-import { Box, Paper, useTheme, Button, Icon, Divider } from '@mui/material';
+import { Box, Paper, useTheme, Button, Icon, Divider, Skeleton, Typography, useMediaQuery, Theme } from '@mui/material';
 
 
 interface IToolbarDetailsProps {
@@ -10,6 +10,12 @@ interface IToolbarDetailsProps {
     showSaveButton?: boolean;
     showSaveCloseButton?: boolean;
 
+    showSaveButtonLoading?: boolean;
+    showBackButtonLoading?: boolean;
+    showDeleteButtonLoading?: boolean;
+    showNewButtonLoading?: boolean;
+    showSaveCloseButtonLoading?: boolean;
+
     clickNewButton?: () => void;
     clickBackButton?: () => void;
     clickDeleteButton?: () => void;
@@ -20,11 +26,17 @@ interface IToolbarDetailsProps {
 export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
     newButtonText = 'Novo',
 
-    showNewButton = true,
+    showNewButton = true, 
     showBackButton = true,
     showDeleteButton = true,
     showSaveButton = true,
     showSaveCloseButton = false,
+
+    showSaveButtonLoading = false,
+    showBackButtonLoading = false,
+    showDeleteButtonLoading = false,
+    showNewButtonLoading = false,
+    showSaveCloseButtonLoading = false,
 
     clickNewButton,
     clickBackButton,
@@ -32,6 +44,8 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
     clickSaveButton,
     clickSaveCloseButton,
 }) => {
+    const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+    const mdDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
     const theme = useTheme();
 
     return (
@@ -45,7 +59,7 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
             display='flex'
             alignItems='Center'
         >
-            {showSaveButton && (
+            {(showSaveButton && !showSaveButtonLoading) && (
                 <Button
                     color='primary'
                     variant='contained'
@@ -53,11 +67,21 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
                     startIcon={<Icon>save</Icon>}
                     onClick={clickSaveButton}
                 >
-                    Salvar
+                    <Typography 
+                        variant='button' whiteSpace='nowrap'
+                        textOverflow='ellipsis'
+                        overflow='hidden'
+                    >
+                        Salvar
+                    </Typography>
                 </Button>
             )}
+            
+            {showSaveButtonLoading && (
+                <Skeleton width={110} height={60}/>
+            )}
 
-            {showSaveCloseButton && (
+            {(showSaveCloseButton && !showSaveCloseButtonLoading && !smDown && !mdDown) && (
                 <Button
                     color='primary'
                     variant='outlined'
@@ -65,12 +89,21 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
                     startIcon={<Icon>save</Icon>}
                     onClick={clickSaveCloseButton}
                 >
-                    Salvar e Voltar
+                    <Typography
+                        variant='button' whiteSpace='nowrap'
+                        textOverflow='ellipsis'
+                        overflow='hidden'
+                    >
+                        Salvar e Voltar
+                    </Typography>
                 </Button>
-            
+            )}
+
+            {showSaveCloseButtonLoading && !smDown && (
+                <Skeleton width={180} height={60}/>
             )}
                 
-            {showDeleteButton && (
+            {(showDeleteButton && !showDeleteButtonLoading) && (
                 <Button
                     color='primary'
                     variant='outlined'
@@ -78,11 +111,21 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
                     startIcon={<Icon>delete</Icon>}
                     onClick={clickDeleteButton}
                 >
-                    Apagar
+                    <Typography
+                        variant='button' whiteSpace='nowrap'
+                        textOverflow='ellipsis'
+                        overflow='hidden'
+                    >
+                        Apagar
+                    </Typography>
                 </Button>
             )}
+            
+            {showDeleteButtonLoading && (
+                <Skeleton width={110} height={60}/>
+            )}
 
-            {showNewButton && (
+            {(showNewButton && !showNewButtonLoading && !smDown) && (
                 <Button
                     color='primary'
                     variant='outlined'
@@ -90,13 +133,28 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
                     startIcon={<Icon>add</Icon>}
                     onClick={clickNewButton}
                 >
-                    {newButtonText}
+                    <Typography
+                        variant='button' whiteSpace='nowrap'
+                        textOverflow='ellipsis'
+                        overflow='hidden'
+                    >
+                        {newButtonText}
+                    </Typography>
                 </Button>
             )}
+            
+            {showNewButtonLoading && !smDown && (
+                <Skeleton width={110} height={60}/>
+            )}
 
-            <Divider variant='middle' orientation='vertical'/>
+            {
+                (showBackButton && 
+                    (showNewButton || showDeleteButton || showSaveButton || showSaveCloseButton)
+                ) && (
+                    <Divider variant='middle' orientation='vertical'/>
+            )}
 
-            {showBackButton && (
+            {(showBackButton && !showBackButtonLoading) && (
                 <Button
                     color='primary'
                     variant='outlined'
@@ -104,9 +162,20 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
                     startIcon={<Icon>arrow_back</Icon>}
                     onClick={clickBackButton}
                 >
-                    Voltar
+                    <Typography
+                        variant='button' whiteSpace='nowrap'
+                        textOverflow='ellipsis'
+                        overflow='hidden'
+                    >
+                        Voltar
+                    </Typography>
                 </Button>
             )}
+            
+            {showBackButtonLoading && (
+                <Skeleton width={110} height={60}/>
+            )}
+
         </Box>
     );
 };
