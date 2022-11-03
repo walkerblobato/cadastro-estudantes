@@ -1,5 +1,7 @@
 import { Box, TextField, Button, Paper, useTheme, Icon } from '@mui/material';
 
+import { Environment } from '../../environment';
+
 interface ToolbarListProps {
     searchText?: string;
     showSearchInput?: boolean;
@@ -32,7 +34,7 @@ export const ToolbarList: React.FC<ToolbarListProps> = ({
             {showSearchInput && (
                 <TextField 
                 size='small' 
-                placeholder='Pesquisar...'
+                placeholder={Environment.INPUT_DE_BUSCA}
                 value={searchText}
                 // Por causa do ?. só vai executar a função se ela não for underfined
                 onChange={(e) => changeSearchText?.(e.target.value)}
