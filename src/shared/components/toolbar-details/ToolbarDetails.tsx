@@ -94,7 +94,7 @@ export const ToolbarDetails: React.FC<IToolbarDetailsProps> = ({
                         textOverflow='ellipsis'
                         overflow='hidden'
                     >
-                        Salvar e Voltar
+                        Salvar e fechar
                     </Typography>
                 </Button>
             )}

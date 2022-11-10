@@ -74,31 +74,28 @@ const create = async (dados: Omit<IDetalhePessoa, 'id'>): Promise<number | Error
 
 const updateById = async (id: number, dados: IDetalhePessoa ): Promise<void | Error> => {
     try {
-        const urlRelativa = `/pessoas/:${id}`;
+        const urlRelativa = `/pessoas/${id}`;
 
-        await Api.post<IDetalhePessoa>(urlRelativa, dados);
-
-        return new Error('Erro ao criar o registro.');
+        await Api.put(urlRelativa, dados);
 
     } catch (error) {
 
-        return new Error((error as  {message:string }).message || 'Erro ao criar o registro.');
+        return new Error((error as  {message:string }).message || 'Erro ao atualizar o registro.');
     }
 };
 
-const deleteById = async (id: number): Promise<Promise<void | Error>> => {
+const deleteById = async (id: number): Promise<void | Error> => {
     try {
-        const urlRelativa = `/pessoas/:${id}`;
+        const urlRelativa = `/pessoas/${id}`;
 
-        await Api.delete<IDetalhePessoa>(urlRelativa);
-
-        return new Error('Erro ao criar o registro.');
+        await Api.delete(urlRelativa);
 
     } catch (error) {
 
-        return new Error((error as  {message:string }).message || 'Erro ao criar o registro.');
+        return new Error((error as  {message:string }).message || 'Erro ao apagar o registro.');
     }
 };
+
 
 
 export const PessoasService = {
