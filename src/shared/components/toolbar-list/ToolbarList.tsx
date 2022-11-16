@@ -10,6 +10,7 @@ interface ToolbarListProps {
     showNewButton?: boolean;
     clickNewButton?: () => void;
 }
+
 export const ToolbarList: React.FC<ToolbarListProps> = ({
     searchText = '',
     showSearchInput = false,
@@ -33,12 +34,12 @@ export const ToolbarList: React.FC<ToolbarListProps> = ({
         >
             {showSearchInput && (
                 <TextField 
-                size='small' 
-                placeholder={Environment.INPUT_DE_BUSCA}
-                value={searchText}
-                // Por causa do ?. só vai executar a função se ela não for underfined
-                onChange={(e) => changeSearchText?.(e.target.value)}
-            />
+                    size='small' 
+                    placeholder={Environment.INPUT_DE_BUSCA}
+                    value={searchText}
+                    // Por causa do ?. só vai executar a função se ela não for underfined
+                    onChange={(e) => changeSearchText?.(e.target.value)}
+                />
             )}
             <Box 
                 flex={1} 

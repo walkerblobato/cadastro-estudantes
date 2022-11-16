@@ -1,8 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 import { useMenuContext } from '../shared/contexts';
 import { useEffect } from 'react';
-import { Main } from '../pages';
+import { Main, ListCities } from '../pages';
 
 
 export const AppRoutes = () => {
@@ -15,12 +14,18 @@ export const AppRoutes = () => {
                 to: '/pagina-inicial',
                 label: 'Página inicial',
             },
+            {
+                icon: 'location_city',
+                to: '/cidades',
+                label: 'Cidades',
+            },
         ]);
     }, []);
 
     return (
         <Routes>
             <Route path='/pagina-inicial' element={<Main />} />
+            <Route path='cidades' element={<ListCities />} />
             <Route path='*' element={<Navigate to='/pagina-inicial' />}/>
         </Routes>
     );

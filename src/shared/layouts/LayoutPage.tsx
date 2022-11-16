@@ -3,8 +3,6 @@ import { Typography, useTheme, IconButton, Icon, useMediaQuery, Theme } from '@m
 import { Box } from '@mui/system';
 import { useMenuContext } from '../contexts';
 
-
-
 interface ILayoutPage {
     title: string;
     children: ReactNode;
