@@ -1,2 +1,2 @@
 export * from './main/Main';
-export * from './cities/listCities';
+export * from './people/listPeople';

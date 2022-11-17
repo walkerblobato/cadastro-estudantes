@@ -1,18 +1,31 @@
 import { useSearchParams } from 'react-router-dom';
 import { ToolbarList } from '../../shared/components';
 import { LayoutPage } from '../../shared/layouts';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
+import { PeopleService } from '../../shared/services/api/pessoas/PeopleService';
 
-export const ListCities = () => {
+export const ListPeople = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const search = useMemo(() => {
         return searchParams.get('search') || '';
     }, [searchParams]);
+
+    useEffect(() => {
+        PeopleService.getAll(1, search)
+            .then((result) => {
+                if (result instanceof Error) {
+                    alert(result.message);
+                    return;
+                }
+
+                console.log(result);
+            });
+    }, [search]);
     
     return (
         <LayoutPage 
-            title='Listagem de cidades'
+            title='Listagem de pessoas'
             toolbar={
                 <ToolbarList
                     showSearchInput 

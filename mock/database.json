@@ -1,9 +1,10 @@
 {
-    "students": [
+    "pessoas": [
         {
             "id": 1,
-            "nome": "Juca",
-            "sobrenome": "Silva"
+            "email": "walker.b.lobato@gmail.com",
+            "cidadeId": 1,
+            "nomeCompleto": "Walker Lobato"
         }
     ]
 }
