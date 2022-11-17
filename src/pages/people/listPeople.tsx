@@ -3,16 +3,21 @@ import { ToolbarList } from '../../shared/components';
 import { LayoutPage } from '../../shared/layouts';
 import { useMemo, useEffect } from 'react';
 import { PeopleService } from '../../shared/services/api/pessoas/PeopleService';
+import { useDebounce } from '../../shared/hooks';
+
 
 export const ListPeople = () => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const { debounce } = useDebounce(1500);
 
     const search = useMemo(() => {
         return searchParams.get('search') || '';
     }, [searchParams]);
 
     useEffect(() => {
-        PeopleService.getAll(1, search)
+
+        debounce(() => {
+            PeopleService.getAll(1, search)
             .then((result) => {
                 if (result instanceof Error) {
                     alert(result.message);
@@ -21,6 +26,8 @@ export const ListPeople = () => {
 
                 console.log(result);
             });
+        });
+
     }, [search]);
     
     return (
