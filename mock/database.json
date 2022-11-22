@@ -4,7 +4,41 @@
             "id": 1,
             "email": "walker.b.lobato@gmail.com",
             "cidadeId": 1,
-            "nomeCompleto": "Walker Lobato"
+            "nomeCompleto": "Walker Lobato",
+            "escola": "Awari",
+            "curso": "Desenvolvedor Web Full Stack"
+        },
+        {
+            "id": 2,
+            "email": "jefferson.a.nascimento@gmail.com",
+            "cidadeId": 1,
+            "nomeCompleto": "Jefferson Alves do Nascimento",
+            "escola": "João Belo de Oliveira",
+            "curso": "Técnico Administrativo"
+        },
+        {
+            "id": 3,
+            "email": "patricia.r.oliveira@gmail.com",
+            "cidadeId": 1,
+            "nomeCompleto": "Patricia Ramos de Oliveira",
+            "escola": "UEMG",
+            "curso": "Bacharelado de Administração"
+        },
+        {
+            "id": 4,
+            "email": "henrique.m.marques@gmail.com",
+            "cidadeId": 1,
+            "nomeCompleto": "Henrique Marques",
+            "escola": "Trybe",
+            "curso": "Desenvolvedor Web Full Stack"
+        },
+        {
+            "id": 5,
+            "email": "rogeria.m.teixeira@gmail.com",
+            "cidadeId": 1,
+            "nomeCompleto": "Rogéria Maria Teixeira",
+            "escola": "UEMG",
+            "curso": "Licenciatura em Pedagogia"
         }
     ]
 }
