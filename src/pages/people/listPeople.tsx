@@ -1,11 +1,12 @@
 import { useMemo, useEffect, useState } from 'react';
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from '@mui/material';
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, TableFooter, Paper, LinearProgress } from '@mui/material';
 
 import { IPeopleList, PeopleService } from '../../shared/services/api/pessoas/PeopleService';
 import { useSearchParams } from 'react-router-dom';
 import { ToolbarList } from '../../shared/components';
 import { LayoutPage } from '../../shared/layouts';
 import { useDebounce } from '../../shared/hooks';
+import { Environment } from '../../shared/environment';
 
 
 
@@ -61,6 +62,7 @@ export const ListPeople = () => {
                 sx={{ m: 1, width: 'auto'}}
             >
                 <Table>
+
                     <TableHead>
                         <TableRow>
                             <TableCell>Ações</TableCell>
@@ -70,6 +72,7 @@ export const ListPeople = () => {
                             <TableCell>Email</TableCell>
                         </TableRow>
                     </TableHead>
+
                     <TableBody>
                         {rows.map(row => (
                             <TableRow key={row.id}>
@@ -81,6 +84,20 @@ export const ListPeople = () => {
                             </TableRow>
                         ))}
                     </TableBody>
+
+                    {totalCount === 0 && !isLoading && (
+                        <caption>{Environment.LISTAGEM_VAZIA}</caption>
+                    )}
+
+                    <TableFooter>
+                        {isLoading && (  
+                            <TableRow>
+                                <TableCell colSpan={5}>
+                                    <LinearProgress variant='indeterminate'/>
+                                </TableCell>      
+                            </TableRow>
+                        )}
+                    </TableFooter>
                 </Table>
             </TableContainer>
         </LayoutPage>
