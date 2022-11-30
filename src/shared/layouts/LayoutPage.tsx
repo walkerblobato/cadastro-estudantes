@@ -24,7 +24,7 @@ export const LayoutPage: React.FC<ILayoutPage> = ({ title, children, toolbar }) 
         >
             <Box 
                 padding={1} 
-                height={theme.spacing(smDown ? 6 : mdDown ? 8 : 12)}
+                height={theme.spacing(smDown ? 5 : mdDown ? 7 : 9)}
                 display='flex'
                 alignItems = 'center'
                 gap={1}

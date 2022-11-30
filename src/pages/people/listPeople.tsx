@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useState } from 'react';
-import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, TableFooter, Paper, LinearProgress } from '@mui/material';
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, TableFooter, Paper, LinearProgress, Pagination } from '@mui/material';
 
 import { IPeopleList, PeopleService } from '../../shared/services/api/pessoas/PeopleService';
 import { useSearchParams } from 'react-router-dom';
@@ -19,14 +19,18 @@ export const ListPeople = () => {
     const { debounce } = useDebounce(1500);
 
     const search = useMemo(() => {
-        return searchParams.get('search') || '';
+        return searchParams.get('buscar') || '';
+    }, [searchParams]);
+
+    const page = useMemo(() => {
+        return Number(searchParams.get('pagina') || '1');
     }, [searchParams]);
 
     useEffect(() => {
         setIsLoading(true);
 
         debounce(() => {
-            PeopleService.getAll(1, search)
+            PeopleService.getAll(page, search)
             .then((result) => {
                 setIsLoading(false);
 
@@ -41,7 +45,7 @@ export const ListPeople = () => {
             });
         });
 
-    }, [search]);
+    }, [search, page]);
     
     return (
         <LayoutPage 
@@ -52,7 +56,7 @@ export const ListPeople = () => {
                     newButtonText='Nova'
                     searchText={search}
                     // { replace: true} impede que o react router dom fique registrando várias buscas no navegador
-                    changeSearchText={text => setSearchParams({ search: text }, { replace: true })}
+                    changeSearchText={text => setSearchParams({ buscar: text, pagina: '1' }, { replace: true })}
                 />
             }
         >
@@ -94,6 +98,18 @@ export const ListPeople = () => {
                             <TableRow>
                                 <TableCell colSpan={5}>
                                     <LinearProgress variant='indeterminate'/>
+                                </TableCell>      
+                            </TableRow>
+                        )}
+
+                        {(totalCount > 0 && totalCount > Environment.LIMITE_DE_LINHAS) && (  
+                            <TableRow>
+                                <TableCell colSpan={5}>
+                                    <Pagination
+                                        page={page} 
+                                        count={Math.ceil(totalCount / Environment.LIMITE_DE_LINHAS)}
+                                        onChange={(_, newPage) => setSearchParams({ buscar: search, pagina: newPage.toString() }, { replace: true })}
+                                    /> 
                                 </TableCell>      
                             </TableRow>
                         )}
