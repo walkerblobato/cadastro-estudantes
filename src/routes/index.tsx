@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useMenuContext } from '../shared/contexts';
 import { useEffect } from 'react';
-import { Main, ListPeople } from '../pages';
+import { Main, ListPeople, DetailsPeople } from '../pages';
 
 
 export const AppRoutes = () => {
@@ -27,7 +27,7 @@ export const AppRoutes = () => {
             <Route path='/pagina-inicial' element={<Main />} />
 
             <Route path='pessoas' element={<ListPeople />} />
-            <Route path="/pessoas/detalhe/:id" element={<p>Detalhe</p>} />
+            <Route path="/pessoas/detalhe/:id" element={<DetailsPeople />}/>
 
             <Route path='*' element={<Navigate to='/pagina-inicial' />}/>
         </Routes>

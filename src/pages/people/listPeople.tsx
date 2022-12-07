@@ -74,6 +74,7 @@ export const ListPeople = () => {
                     newButtonText='Nova'
                     searchText={search}
                     // { replace: true} impede que o react router dom fique registrando várias buscas no navegador
+                    clickNewButton={() => navigate('/pessoas/detalhe/nova')}
                     changeSearchText={text => setSearchParams({ buscar: text, pagina: '1' }, { replace: true })}
                 />
             }
