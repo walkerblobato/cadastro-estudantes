@@ -46,7 +46,7 @@ const getAll = async (page = 1, filter = ''): Promise<TPeopleWithTotalCount | Er
 
 const getById = async (id: number): Promise<IPeopleDetails | Error> => {
     try {
-        const urlRelativa = `/pessoas/:${id}`;
+        const urlRelativa = `/pessoas/${id}`;
 
         const { data } = await Api.get(urlRelativa);
 
@@ -55,6 +55,7 @@ const getById = async (id: number): Promise<IPeopleDetails | Error> => {
         return new Error('Erro ao consultar o registro.');
 
     } catch (error) {
+        console.error(error);
 
         return new Error((error as  {message:string }).message || 'Erro ao consultar o registro.');
     }

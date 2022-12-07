@@ -1,25 +1,62 @@
+import { LinearProgress } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToolbarDetails } from '../../shared/components';
 import { LayoutPage } from '../../shared/layouts';
+import { PeopleService } from '../../shared/services/api/pessoas/PeopleService';
 
 
 export const DetailsPeople: React.FC = () => {
-    const { id = 'nova'} = useParams<'id'>();
+    const { id = 'nova' } = useParams<'id'>();
     const navigate = useNavigate();
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        if (id !== 'nova') {
+            setIsLoading(true);
+
+            PeopleService.getById(Number(id))
+            .then((result) => {
+                setIsLoading(false);
+                
+                if (result instanceof Error) {
+                    alert(result.message);
+                    navigate('/pessoas');
+                } else {
+                    setName(result.nomeCompleto);
+
+                    console.log(result);
+                }
+            });
+        }
+    }, [id]);
 
     const handleSave = () => {
         console.log('Save');
     };
 
-    const handleDelete = () => {
-        console.log('Delete');
+    const handleDelete = (id: number) => {
+        if (confirm('Realmente deseja apagar?')) {
+            PeopleService.deleteById(id)
+            .then(result => {
+                if (result instanceof Error) {
+                    alert(result.message);
+                } else {                 
+                    alert('Registro apagado com sucesso!');
+
+                    navigate('/pessoas');
+                }
+            });
+        }
     };
 
     return (
         <LayoutPage
-            title='Detalhe de pessoa'
+            title={id === 'nova' ? 'Nova pessoa' : name}
             toolbar={
-                <ToolbarDetails 
+                <ToolbarDetails
                     newButtonText='Nova'
                     showSaveCloseButton
                     showNewButton={id !== 'nova'}
@@ -27,12 +64,16 @@ export const DetailsPeople: React.FC = () => {
 
                     clickSaveButton={handleSave}
                     clickSaveCloseButton={handleSave}
-                    clickDeleteButton={handleDelete}
+                    clickDeleteButton={() => handleDelete(Number(id))}
                     clickBackButton={() => navigate('/pessoas')}
                     clickNewButton={() => navigate('/pessoas/detalhe/nova')}
                 />
             }
         >
+            {isLoading && (
+                <LinearProgress variant='indeterminate'/>
+            )}
+
             <p>DetalheDePessoas {id}</p>
         </LayoutPage>
     );
