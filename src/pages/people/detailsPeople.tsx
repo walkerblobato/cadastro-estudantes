@@ -1,7 +1,10 @@
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, TextField } from '@mui/material';
+import { Form } from '@unform/web';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { ToolbarDetails } from '../../shared/components';
+import { VTextField } from '../../shared/forms';
 import { LayoutPage } from '../../shared/layouts';
 import { PeopleService } from '../../shared/services/api/pessoas/PeopleService';
 
@@ -70,11 +73,15 @@ export const DetailsPeople: React.FC = () => {
                 />
             }
         >
-            {isLoading && (
-                <LinearProgress variant='indeterminate'/>
-            )}
+            
+            <Form onSubmit={(dados) => console.log(dados)}>
+                <VTextField 
+                    name='nomeCompleto'
+                />
 
-            <p>DetalheDePessoas {id}</p>
+                <button type='submit'>Submit</button>
+            </Form>
+
         </LayoutPage>
     );
 };
