@@ -10,11 +10,11 @@
     },
     {
       "id": 4,
-      "email": "henrique.m.marques@gmail.com",
-      "cidadeId": 1,
       "nomeCompleto": "Henrique Marques",
       "escola": "Trybe",
-      "curso": "Desenvolvedor Web Full Stack"
+      "curso": "Desenvolvedor Web Full Stack",
+      "email": "henrique.m.marques@gmail.com",
+      "cidadeId": 1
     },
     {
       "id": 5,
@@ -87,6 +87,22 @@
       "nomeCompleto": "Júlio Santana Cavalcante",
       "escola": "Faculdade Redentor",
       "curso": "Engenharia Mecânica"
+    },
+    {
+      "nomeCompleto": "Walker Brum Lobato Filho",
+      "escola": "Awari",
+      "curso": "Desenvolvedor Web Full Stack",
+      "email": "walker.b.lobato@gmail.com",
+      "cidadeID": "2",
+      "id": 14
+    },
+    {
+      "id": 15,
+      "nomeCompleto": "José Antônio de Souza",
+      "escola": "Doctum",
+      "curso": "Direito",
+      "email": "jose.a.souza@gmail.com",
+      "cidadeId": "3"
     }
   ]
 }
