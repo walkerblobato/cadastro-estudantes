@@ -1,11 +1,9 @@
 import { Box, Paper, Grid, Typography, LinearProgress } from '@mui/material';
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ToolbarDetails } from '../../shared/components';
-import { VTextField } from '../../shared/forms';
+import { VTextField, VForm, useVForm } from '../../shared/forms';
 import { LayoutPage } from '../../shared/layouts';
 import { PeopleService } from '../../shared/services/api/pessoas/PeopleService';
 
@@ -20,7 +18,7 @@ export const DetailsPeople: React.FC = () => {
     const { id = 'nova' } = useParams<'id'>();
     const navigate = useNavigate();
 
-    const formRef = useRef<FormHandles>(null);
+    const { formRef, save, saveAndClose, isSaveAndClose } = useVForm();
 
     const [isLoading, setIsLoading] = useState(false);
     const [name, setName] = useState('');
@@ -66,7 +64,11 @@ export const DetailsPeople: React.FC = () => {
                     if (result instanceof Error) {
                         alert(result.message);
                     } else {
-                        navigate(`/pessoas/detalhe/${result}`);
+                        if (isSaveAndClose()) {
+                            navigate('/pessoas');
+                        } else {
+                            navigate(`/pessoas/detalhe/${result}`);
+                        }
                     }
                 });
         } else {
@@ -78,7 +80,9 @@ export const DetailsPeople: React.FC = () => {
                     if (result instanceof Error) {
                         alert(result.message);
                     } else {
-                        navigate('/pessoas');
+                        if (isSaveAndClose()) {
+                            navigate('/pessoas');
+                        }
                     }
                 });
         }
@@ -109,16 +113,16 @@ export const DetailsPeople: React.FC = () => {
                     showNewButton={id !== 'nova'}
                     showDeleteButton={id !== 'nova'}
 
-                    clickSaveButton={() => formRef.current?.submitForm()}
+                    clickSaveButton={save}
                     clickDeleteButton={() => handleDelete(Number(id))}
                     clickBackButton={() => navigate('/pessoas')}
                     clickNewButton={() => navigate('/pessoas/detalhe/nova')}
-                    clickSaveCloseButton={() => formRef.current?.submitForm()}
+                    clickSaveCloseButton={saveAndClose}
                 />
             }
         >
             
-            <Form ref={formRef} onSubmit={handleSave}>
+            <VForm ref={formRef} onSubmit={handleSave}>
                 <Box 
                     margin={1} 
                     display='flex' 
@@ -202,7 +206,7 @@ export const DetailsPeople: React.FC = () => {
                     </Grid>
                                  
                 </Box> 
-            </Form>
+            </VForm>
 
         </LayoutPage>
     );

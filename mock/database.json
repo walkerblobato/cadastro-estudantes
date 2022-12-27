@@ -2,11 +2,11 @@
   "pessoas": [
     {
       "id": 2,
-      "email": "jefferson.a.nascimento@gmail.com",
-      "cidadeId": 1,
       "nomeCompleto": "Jefferson Alves do Nascimento",
       "escola": "João Belo de Oliveira",
-      "curso": "Técnico Administrativo"
+      "curso": "Técnico Administrativo",
+      "email": "jefferson.a.nascimento@gmail.com",
+      "cidadeId": 1
     },
     {
       "id": 4,
