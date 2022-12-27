@@ -18,19 +18,19 @@
     },
     {
       "id": 5,
-      "email": "rogeria.m.teixeira@gmail.com",
-      "cidadeId": 1,
-      "nomeCompleto": "Rogéria Maria Teixeira",
+      "nomeCompleto": "Rogéria Maria Teixeira ",
       "escola": "UEMG",
-      "curso": "Pedagogia"
+      "curso": "Pedagogia",
+      "email": "rogeria.m.teixeira@gmail.com",
+      "cidadeId": 1
     },
     {
       "id": 6,
-      "email": "giuliano.d.oliveira@gmail.com",
-      "cidadeId": 1,
       "nomeCompleto": "Giuliano de Oliveira",
       "escola": "UEMG",
-      "curso": "Administração"
+      "curso": "Administração",
+      "email": "giuliano.d.oliveira@gmail.com",
+      "cidadeId": 1
     },
     {
       "id": 7,
