@@ -1,9 +1,10 @@
 import { Box, Paper, Grid, Typography, LinearProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import * as yup from 'yup';
 
 import { ToolbarDetails } from '../../shared/components';
-import { VTextField, VForm, useVForm } from '../../shared/forms';
+import { VTextField, VForm, useVForm, IVFormErros } from '../../shared/forms';
 import { LayoutPage } from '../../shared/layouts';
 import { PeopleService } from '../../shared/services/api/pessoas/PeopleService';
 
@@ -14,6 +15,15 @@ interface IFormData {
     escola: string;
     curso: string;
 }
+
+const formValidationSchema: yup.SchemaOf<IFormData> = yup.object().shape({
+    email: yup.string().required().email(),
+    cidadeId: yup.number().required(),
+    nomeCompleto: yup.string().required().min(3),
+    escola: yup.string().required().min(3),
+    curso: yup.string().required().min(3),
+});
+
 export const DetailsPeople: React.FC = () => {
     const { id = 'nova' } = useParams<'id'>();
     const navigate = useNavigate();
@@ -52,40 +62,56 @@ export const DetailsPeople: React.FC = () => {
         }
     }, [id]);
 
-    const handleSave = (dados: IFormData) => {
-        setIsLoading(true);
+    const handleSave = (data: IFormData) => {
+        formValidationSchema.
+            validate(data, { abortEarly: false })
+            .then((validateData) => {
+                setIsLoading(true);
 
-        if (id === 'nova') {
-            PeopleService
-                .create(dados)
-                .then((result) => {
-                    setIsLoading(false);
+                if (id === 'nova') {
+                    PeopleService
+                        .create(validateData)
+                        .then((result) => {
+                            setIsLoading(false);
 
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        if (isSaveAndClose()) {
-                            navigate('/pessoas');
-                        } else {
-                            navigate(`/pessoas/detalhe/${result}`);
-                        }
-                    }
+                            if (result instanceof Error) {
+                                alert(result.message);
+                            } else {
+                                if (isSaveAndClose()) {
+                                    navigate('/pessoas');
+                                } else {
+                                    navigate(`/pessoas/detalhe/${result}`);
+                                }
+                            }
+                        });
+                } else {
+                    PeopleService
+                        .updateById(Number(id), { id: Number(id), ...validateData })
+                        .then((result) => {
+                            setIsLoading(false);
+
+                            if (result instanceof Error) {
+                                alert(result.message);
+                            } else {
+                                if (isSaveAndClose()) {
+                                    navigate('/pessoas');
+                                }
+                            }
+                        });
+                }
+            })
+            .catch((error: yup.ValidationError) => {
+                const validationErrors: IVFormErros = {};
+                
+                error.inner.forEach(error => {
+                    if (!error.path) return;
+
+                    validationErrors[error.path] = error.message;
                 });
-        } else {
-            PeopleService
-                .updateById(Number(id), { id: Number(id), ...dados})
-                .then((result) => {
-                    setIsLoading(false);
 
-                    if (result instanceof Error) {
-                        alert(result.message);
-                    } else {
-                        if (isSaveAndClose()) {
-                            navigate('/pessoas');
-                        }
-                    }
-                });
-        }
+                console.log(validationErrors);
+                formRef.current?.setErrors(validationErrors);
+            });       
     };
 
     const handleDelete = (id: number) => {
