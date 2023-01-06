@@ -1,7 +1,7 @@
 import { useMemo, useEffect, useState } from 'react';
 import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, TableFooter, Paper, LinearProgress, Pagination, IconButton, Icon } from '@mui/material';
 
-import { IPeopleList, PeopleService } from '../../shared/services/api/people/PeopleService';
+import { ICitiesList, CitiesService } from '../../shared/services/api/cities/CitiesService';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ToolbarList } from '../../shared/components';
 import { LayoutPage } from '../../shared/layouts';
@@ -10,9 +10,9 @@ import { Environment } from '../../shared/environment';
 
 
 
-export const ListPeople = () => {
+export const ListCities = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const [rows, setRows] = useState<IPeopleList[]>([]);
+    const [rows, setRows] = useState<ICitiesList[]>([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const ListPeople = () => {
         setIsLoading(true);
 
         debounce(() => {
-            PeopleService.getAll(page, search)
+            CitiesService.getAll(page, search)
             .then((result) => {
                 setIsLoading(false);
 
@@ -50,7 +50,7 @@ export const ListPeople = () => {
 
     const handleDelete = (id: number) => {
         if (confirm('Realmente deseja apagar?')) {
-            PeopleService.deleteById(id)
+            CitiesService.deleteById(id)
             .then(result => {
                 if (result instanceof Error) {
                     alert(result.message);
@@ -67,14 +67,14 @@ export const ListPeople = () => {
     
     return (
         <LayoutPage 
-            title='Listagem de pessoas'
+            title='Listagem de cidades'
             toolbar={
                 <ToolbarList
                     showSearchInput 
                     newButtonText='Nova'
                     searchText={search}
                     // { replace: true} impede que o react router dom fique registrando várias buscas no navegador
-                    clickNewButton={() => navigate('/pessoas/detalhe/nova')}
+                    clickNewButton={() => navigate('/cidades/detalhe/nova')}
                     changeSearchText={text => setSearchParams({ buscar: text, pagina: '1' }, { replace: true })}
                 />
             }
@@ -89,10 +89,8 @@ export const ListPeople = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell width={100}>Ações</TableCell>
-                            <TableCell>Nome Completo</TableCell>
-                            <TableCell>Escola</TableCell>
-                            <TableCell>Curso</TableCell>
-                            <TableCell>Email</TableCell>
+                            <TableCell>Nome</TableCell>
+                           
                         </TableRow>
                     </TableHead>
 
@@ -108,15 +106,12 @@ export const ListPeople = () => {
                                 </IconButton>
                                 <IconButton 
                                     size='small'
-                                    onClick={() => navigate(`/pessoas/detalhe/${row.id}`)}
+                                    onClick={() => navigate(`/cidades/detalhe/${row.id}`)}
                                 >
                                     <Icon>edit</Icon>
                                 </IconButton>
                                 </TableCell>
-                                <TableCell>{row.nomeCompleto}</TableCell>
-                                <TableCell>{row.escola}</TableCell>
-                                <TableCell>{row.curso}</TableCell>
-                                <TableCell>{row.email}</TableCell>
+                                <TableCell>{row.nome}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

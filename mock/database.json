@@ -104,5 +104,19 @@
       "email": "jose.a.souza@gmail.com",
       "cidadeId": "3"
     }
+  ],
+  "cidades": [
+    {
+      "nome": "Carangola",
+      "id": 1
+    },
+    {
+      "nome": "Porto Alegre",
+      "id": 2
+    },
+    {
+      "nome": "Belo Horizonte",
+      "id": 3
+    }
   ]
 }
