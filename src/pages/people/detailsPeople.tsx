@@ -18,7 +18,7 @@ interface IFormData {
 
 const formValidationSchema: yup.SchemaOf<IFormData> = yup.object().shape({
     email: yup.string().required().email(),
-    cidadeId: yup.number().required(),
+    cidadeId: yup.number().integer().required(''),
     nomeCompleto: yup.string().required().min(3),
     escola: yup.string().required().min(3),
     curso: yup.string().required().min(3),
