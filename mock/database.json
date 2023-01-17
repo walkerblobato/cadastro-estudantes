@@ -138,5 +138,8 @@
       "nome": "Vitória",
       "id": 6
     }
-  ]
+  ],
+  "auth": {
+    "acessToken": "aaaaaaaaaa.bbbbbbbbbb.cccccccccc"
+  }
 }
