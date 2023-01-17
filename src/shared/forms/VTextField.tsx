@@ -18,7 +18,9 @@ export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
             getValue: () => value,
             setValue: (_, newValue) => setValue(newValue),
         });
+   
     }, [registerField, fieldName, value]);
+
     return (
         <TextField 
             {...rest}
@@ -27,7 +29,7 @@ export const VTextField: React.FC<TVTextFieldProps> = ({ name, ...rest }) => {
             defaultValue={defaultValue}
             value={value}
             // Para conseguir usar funções com outros parâmetros
-            onChange={e => {setValue(e.target.value); rest.onChange?.(e);}}
+            onChange={e => { setValue(e.target.value); rest.onChange?.(e);}}
             onKeyDown={e => { error && clearError(); rest.onKeyDown?.(e); }}
         />
     );

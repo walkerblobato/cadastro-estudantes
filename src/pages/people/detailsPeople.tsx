@@ -7,6 +7,7 @@ import { ToolbarDetails } from '../../shared/components';
 import { VTextField, VForm, useVForm, IVFormErros } from '../../shared/forms';
 import { LayoutPage } from '../../shared/layouts';
 import { PeopleService } from '../../shared/services/api/people/PeopleService';
+import { AutocompleteCity } from './components/AutocompleteCity';
 
 interface IFormData {
     email: string;
@@ -18,7 +19,7 @@ interface IFormData {
 
 const formValidationSchema: yup.SchemaOf<IFormData> = yup.object().shape({
     email: yup.string().required().email(),
-    cidadeId: yup.number().integer().required(''),
+    cidadeId: yup.number().integer().required(),
     nomeCompleto: yup.string().required().min(3),
     escola: yup.string().required().min(3),
     curso: yup.string().required().min(3),
@@ -53,10 +54,10 @@ export const DetailsPeople: React.FC = () => {
         } else {
             formRef.current?.setData({
                 email: '',
-                cidadeId: '',
                 nomeCompleto: '',
                 escola: '',
-                curso: ''
+                curso: '',
+                cidadeId: undefined
             });
         }
     }, [id]);
@@ -219,12 +220,7 @@ export const DetailsPeople: React.FC = () => {
 
                         <Grid container item direction='row'>
                             <Grid item xs={12} lg={6}>
-                                <VTextField 
-                                    fullWidth 
-                                    label="Cidade" 
-                                    name='cidadeId'
-                                    disabled={isLoading}
-                                />
+                                <AutocompleteCity isExternalLoading={isLoading} />
                             </Grid>
                         </Grid>
 

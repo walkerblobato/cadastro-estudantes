@@ -14,7 +14,7 @@
       "escola": "Trybe",
       "curso": "Desenvolvedor Web Full Stack",
       "email": "henrique.m.marques@gmail.com",
-      "cidadeId": 1
+      "cidadeId": 5
     },
     {
       "id": 5,
@@ -22,7 +22,7 @@
       "escola": "UEMG",
       "curso": "Pedagogia",
       "email": "rogeria.m.teixeira@gmail.com",
-      "cidadeId": 1
+      "cidadeId": 4
     },
     {
       "id": 6,
@@ -103,6 +103,14 @@
       "curso": "Direito",
       "email": "jose.a.souza@gmail.com",
       "cidadeId": "3"
+    },
+    {
+      "nomeCompleto": "Philipe Teixeira Ferreira de Medanha",
+      "escola": "Odontotec",
+      "curso": "Técnico em Prótese Dentária",
+      "email": "philipe.t.ferreira@gmail.com",
+      "cidadeId": 4,
+      "id": 16
     }
   ],
   "cidades": [
@@ -117,6 +125,18 @@
     {
       "nome": "Belo Horizonte",
       "id": 3
+    },
+    {
+      "nome": "Juiz de Fora",
+      "id": 4
+    },
+    {
+      "nome": "Guarapari",
+      "id": 5
+    },
+    {
+      "nome": "Vitória",
+      "id": 6
     }
   ]
 }
