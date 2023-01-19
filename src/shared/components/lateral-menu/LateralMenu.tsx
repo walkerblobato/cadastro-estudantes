@@ -1,7 +1,7 @@
-import { Avatar, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
-import { Box } from '@mui/system';
+import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery, useTheme } from '@mui/material';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { useAppThemeContext, useMenuContext } from '../../contexts';
+
+import { useAppThemeContext, useAuthContext, useMenuContext } from '../../contexts';
 import profile from './profile-walker.jpg';
 
 
@@ -44,6 +44,7 @@ export const LateralMenu: React.FC<ILateralMenu> = ({ children }) => {
 
     const { isMenuOpen, changeMenuOpen, menuOptions } = useMenuContext();
     const { changeTheme } = useAppThemeContext();
+    const { logout } = useAuthContext();
 
     return (
         <>
@@ -87,12 +88,21 @@ export const LateralMenu: React.FC<ILateralMenu> = ({ children }) => {
 
                     <Box>
                         <List component='nav'>
-                        <ListItemButton onClick={changeTheme}>
-                            <ListItemIcon>
-                                <Icon>dark_mode</Icon>
-                            </ListItemIcon>
-                            <ListItemText primary="Alternar Theme"/>
-                        </ListItemButton>
+                            <ListItemButton onClick={changeTheme}>
+                                <ListItemIcon>
+                                    <Icon>dark_mode</Icon>
+                                </ListItemIcon>
+                                <ListItemText primary="Alternar Theme"/>
+                            </ListItemButton>
+                        </List>
+
+                        <List component='nav'>
+                            <ListItemButton onClick={logout}>
+                                <ListItemIcon>
+                                    <Icon>logout</Icon>
+                                </ListItemIcon>
+                                <ListItemText primary="Sair"/>
+                            </ListItemButton>
                         </List>
                     </Box>
 

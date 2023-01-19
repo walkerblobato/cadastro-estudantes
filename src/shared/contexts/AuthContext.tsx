@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useEffect, useMemo, useState, useContext } from 'react';
 
 import { AuthService } from '../services/api/auth/AuthService';
 
@@ -11,7 +11,7 @@ interface IAuthContextData {
 
 const AuthContext = createContext({} as IAuthContextData);
 
-const LOCAL_STORAGE_KEY_ACESS_TOKEN = 'APP_ACCESS_TOKEN';
+const LOCAL_STORAGE_KEY_ACESS_TOKEN = 'APP_ACCESS_TOKEN'; 
 
 interface IAuthProviderProps {
     children: React.ReactNode
@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
 
     }, []);
 
-    const handleLogin = useCallback(async ( email: string, password: string) => {
+    const handleLogin = useCallback(async (email: string, password: string) => {
         const result = await AuthService.auth(email, password);
 
         if (result instanceof Error) {
@@ -55,3 +55,5 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+
+export const useAuthContext = () => useContext(AuthContext);
